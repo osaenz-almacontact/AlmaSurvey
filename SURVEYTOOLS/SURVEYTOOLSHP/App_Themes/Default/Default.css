@@ -1,0 +1,135 @@
+﻿body 
+{
+    padding:0px;
+    margin:0px;
+    width:100%;
+    
+}
+.css_background_bottom
+{
+    background-color:#464649;
+}
+/*LETRAS*/
+.css_fuente_letra {
+    font-family: "century gothic";
+}
+.css_color_titulo {
+    color: #0F4A6D;
+}
+.css_color_sub_titulo {
+    color: #313132;
+}
+.css_tamaño_titulo_central
+{
+font-size:30px;
+}
+.css_tamanio_subtitulos
+{
+font-size:18px;
+}
+.css_tamanio_descripcion
+{
+font-size:16px;
+}
+.css_color_botones
+{
+background-color:#456FC9;
+border:1px solid #456FC9;
+}
+.css_color_letra_blaca
+{
+color:White;
+}
+.css_color_letra_conFondo
+{
+background-color:#464649;
+color:White;
+}
+.css_bold
+{
+font-weight:bold;
+}
+/*BORDDES*/
+/*Border simple*/
+ .css_border_simple
+{
+border:2px solid #464649;
+}    
+.css_border_right_simple
+{
+border-right:2px solid #464649;    
+}  
+.css_border_left_simple
+{
+border-left:2px solid #464649;    
+}
+.css_border_top_simple
+{
+border-top:2px solid #464649;    
+}  
+.css_border_bottom_simple
+{
+border-bottom:2px solid #464649;    
+}  
+/*Border grueso*/
+.css_border_grueso
+{
+border:5px solid #464649;
+}    
+.css_border_right_grueso
+{
+border-right:5px solid #464649;    
+}  
+.css_border_left_grueso
+{
+border-left:5px solid #464649;    
+}
+.css_border_top_grueso
+{
+border-top:5px solid #464649;    
+}  
+.css_border_bottom_grueso
+{
+border-bottom:5px solid #464649;    
+}
+/*TAMAÑO TABLA*/
+/*Ancho*/
+.css_tamanio_widht_50
+{
+    width:50%;
+    }
+    .css_tamanio_widht_100
+{
+    width:100%;
+    }
+    /*Largo*/
+    .css_tamanio_Height_50
+{
+    height:50%;
+    }
+    .css_tamanio_Height_100
+{
+    height:100%;
+    }
+    /*PADMIN OJETO*/
+.css_padmin_top
+{
+padding-top:10px
+}
+.css_padmin_left
+{
+padding-left:10px
+}
+.css_padmin_right
+{
+padding-right:10px
+}
+.css_padmin_bottom
+{
+padding-bottom:10px
+}
+                 
+ 
+             
+                             
+                               

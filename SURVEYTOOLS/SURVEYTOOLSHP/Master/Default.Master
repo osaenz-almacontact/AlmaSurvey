@@ -1,0 +1,155 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Default.master.cs" Inherits="SURVEYTOOLSHP.Master.Default" %>
+
+<%@ Register Src="../Control/Usuario.ascx" TagName="Usuario" TagPrefix="uc1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="../App_Themes/Default/CSS/bootstrap.min.css" rel="stylesheet" />
+    <%--    <link type="text/css" href="../App_Themes/Default/Default.css" rel="Stylesheet" />--%>
+</head>
+<body>
+
+    <form id="form1" runat="server">
+
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
+            <%--<asp:Image ID="img_SurveyTools" runat="server" Height="118px" Width="142px"
+                ImageUrl="~/Resources/SurveyLogo.png" />--%>
+            <a class="navbar-brand" href="#">ALMA-SURVEY</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
+                <asp:Menu ID="menuPrincipal" runat="server" Orientation="Horizontal"
+                    CssClass="navbar-nav mr-auto" StaticMenuStyle-CssClass="navbar-nav mr-auto" DynamicMenuStyle-CssClass="nav-item dropdown-menu" OnMenuItemClick="menuPrincipal_MenuItemClick">
+                    <LevelMenuItemStyles>
+                        <asp:MenuItemStyle CssClass="nav-link" />
+
+                    </LevelMenuItemStyles>
+                    <StaticMenuItemStyle HorizontalPadding="10px" />
+                    <StaticMenuStyle HorizontalPadding="10px" />
+                </asp:Menu>
+
+            </div>
+            <asp:Panel ID="pnlUsuario" runat="server" Width="400px">
+                <asp:ContentPlaceHolder ID="content_usuario" runat="server">
+                    <uc1:Usuario ID="Usuario1" runat="server" />
+                </asp:ContentPlaceHolder>
+            </asp:Panel>
+        </nav>
+
+        <main role="main">
+            <div class="container">
+                <table style="width: 100%; position: absolute; left: 0px; z-index: 0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <table style="width: 100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <asp:Panel ID="pnl_subMenu" runat="server" Width="270px" Height="100%" Visible="false">
+
+                                            <asp:TreeView ID="trV_encuestas" runat="server" Width="270px"
+                                                Style="border-right: 2px solid #214023; border-top: 2px solid #214023; position: fixed; z-index: 1; top: 122px; left: 0px"
+                                                ForeColor="#214023" Height="100%"
+                                                OnSelectedNodeChanged="trV_encuestas_SelectedNodeChanged"
+                                                CssClass="css_fuente_letra" NodeStyle-BackColor="White"
+                                                PopulateNodesFromClient="False" Font-Size="12px">
+                                                <HoverNodeStyle Font-Bold="True" Font-Underline="True" />
+                                                <LevelStyles>
+                                                    <asp:TreeNodeStyle BackColor="White" Font-Underline="False" Width="100%" Font-Size="12px" />
+                                                    <asp:TreeNodeStyle Font-Underline="False" Width="100%"
+                                                        VerticalPadding="4px" Font-Size="12px" />
+                                                </LevelStyles>
+                                                <NodeStyle BackColor="White" Font-Size="12px" />
+                                            </asp:TreeView>
+
+                                        </asp:Panel>
+                                    </td>
+                                    <td valign="top" style="background-color: White; padding: 5px 5px 5px 0px">
+                                        <asp:ImageButton
+                                            ID="img_btn_separador" runat="server" OnClick="ImageButton1_Click"
+                                            Height="40px" Width="43px" />
+                                    </td>
+
+                                    <td style="padding: 20px 2% 20px 2%;  width: 100%">
+                                        <asp:Panel ID="Panel1" runat="server">
+                                            <p style="text-align: right; margin: 0px 0px 10px 0px; padding: 0px 20px 0px 0px">
+                                                <strong>
+                                                    <asp:Label ID="lbl_fase" runat="server" Text="" CssClass="css_color_sub_titulo css_fuente_letra css_tamanio_subtitulos css_border_simple" Width="200px" Style="padding: 5px; text-align: center"></asp:Label></strong>
+                                            </p>
+                                            <asp:ContentPlaceHolder ID="content_body" runat="server">
+                                            </asp:ContentPlaceHolder>
+                                        </asp:Panel>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td style="height: 100%; text-align: center">
+                            <center>
+      <asp:Label ID="lbl_Credenciales_HP" runat="server" Text="" ForeColor="White" Width="100%" CssClass="css_fuente_letra"></asp:Label>
+  </center>
+                        </td>
+
+                    </tr>
+                </table>
+
+
+                <asp:Panel ID="pnl_Mensaje" runat="server" Width="400px" Visible="false" Style="position: fixed; bottom: 0px; z-index: 1; left: 30%">
+                    <table style="width: 100%; background-color: White; border: 2px solid #464649" cellpadding="0" cellspacing="0" class="css_fuente_letra">
+                        <tr>
+                            <td colspan="2" style="background-color: #464649; color: White; font-size: 17px; text-align: center">
+                                <table style="width: 100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="width: 100%; text-align: center"><strong>SurverTools</strong></td>
+                                        <td style="background-color: Gray">
+                                            <asp:ImageButton ID="img_btn_ocultar" runat="server" Height="16px"
+                                                ImageUrl="~/Resources/Iconos/Close.png" OnClick="img_btn_ocultar_Click"
+                                                Width="16px" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td valign="middle" style="width: 30%">
+                                <center>
+        <asp:Image ID="img_mensaje" runat="server" Height="50px" Width="50px" />
+    </center>
+                            </td>
+                            <td valign="middle" style="width: 70%; padding-left: 10px; text-align: left; font-size: 14px">
+                                <p style="margin: 0px 0px 7px 0px; font-size: 15px">
+                                    <strong>
+                                        <asp:Label ID="lbl_titulo_mensaje" runat="server" Text=""></asp:Label></strong>
+                                </p>
+
+                                <strong>
+                                    <asp:Label ID="lbl_descripcion_Mensaje" runat="server" Text=""></asp:Label></strong></td>
+                        </tr>
+
+
+                    </table>
+                </asp:Panel>
+
+            </div>
+        </main>
+
+
+
+    </form>
+
+</body>
+</html>

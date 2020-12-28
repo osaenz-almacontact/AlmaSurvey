@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5369FA76-A747-4AAB-BBC5-035419034043}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SURVEYTOOLSHP</RootNamespace>
+    <AssemblyName>SURVEYTOOLSHP</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\CSS\bootstrap.css" />
+    <Content Include="App_Themes\Default\CSS\bootstrap.min.css" />
+    <Content Include="App_Themes\Default\CSS\styles.css" />
+    <Content Include="App_Themes\Default\Default.css" />
+    <Content Include="App_Themes\Default\Downcount.css" />
+    <Content Include="App_Themes\Default\LoginStyle.css" />
+    <Content Include="App_Themes\Images\logo.png" />
+    <Content Include="Content\Home.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\Efectividad.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\Encuesta.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaDetalles.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaUnica.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\RespuestaEspecifica.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\UsuarioXEncuesta.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministrarEncuestas\CrearEncuesta.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministrarEncuestas\Default.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministrarEncuestas\Encuesta.aspx" />
+    <Content Include="Content\MenuPrincipal\Cuentas\AdministrarCuentas.aspx" />
+    <Content Include="Content\MenuPrincipal\Cuentas\CrearUsuario.aspx" />
+    <Content Include="Content\MenuPrincipal\Cuentas\CuentaDetalles.aspx" />
+    <Content Include="Content\MenuPrincipal\Encuesta\Default.aspx" />
+    <Content Include="Content\MenuPrincipal\Encuesta\Encuesta.aspx" />
+    <Content Include="Control\Usuario.ascx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Message\Default.aspx" />
+    <Content Include="Resources\Iconos\Add.png" />
+    <Content Include="Resources\Iconos\Back.png" />
+    <Content Include="Resources\Iconos\Calender.png" />
+    <Content Include="Resources\Iconos\Close.png" />
+    <Content Include="Resources\Iconos\Edit.png" />
+    <Content Include="Resources\Iconos\Forward.png" />
+    <Content Include="Resources\Iconos\logo excel.png" />
+    <Content Include="Resources\Iconos\Mail_Read.png" />
+    <Content Include="Resources\Iconos\Next.png" />
+    <Content Include="Resources\Iconos\Redo.png" />
+    <Content Include="Resources\Iconos\Search.png" />
+    <Content Include="Resources\Iconos\Tag.png" />
+    <Content Include="Resources\Iconos\Up.png" />
+    <Content Include="Resources\Iconos\User.png" />
+    <Content Include="Resources\Iconos\Write.png" />
+    <Content Include="Resources\Mensaje\img_Error.png" />
+    <Content Include="Resources\Mensaje\img_Information.png" />
+    <Content Include="Resources\Mensaje\img_Validacion.png" />
+    <Content Include="Resources\Mensaje\img_Warning.png" />
+    <Content Include="Resources\SurveyLogo.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="App_Themes\Default\CSS\bootstrap.css.map" />
+    <Content Include="App_Themes\Default\CSS\bootstrap.min.css.map" />
+    <Content Include="App_Themes\Fonts\Century-Gothic_Alma.woff" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\SURVEYTOOLSHP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SURVEYTOOLSHP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\Efectividad.aspx.cs">
+      <DependentUpon>Efectividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\Efectividad.aspx.designer.cs">
+      <DependentUpon>Efectividad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\Encuesta.aspx.cs">
+      <DependentUpon>Encuesta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\Encuesta.aspx.designer.cs">
+      <DependentUpon>Encuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaDetalles.aspx.cs">
+      <DependentUpon>ListarRespuestaDetalles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaDetalles.aspx.designer.cs">
+      <DependentUpon>ListarRespuestaDetalles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaUnica.aspx.cs">
+      <DependentUpon>ListarRespuestaUnica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaUnica.aspx.designer.cs">
+      <DependentUpon>ListarRespuestaUnica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\RespuestaEspecifica.aspx.cs">
+      <DependentUpon>RespuestaEspecifica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\RespuestaEspecifica.aspx.designer.cs">
+      <DependentUpon>RespuestaEspecifica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\UsuarioXEncuesta.aspx.cs">
+      <DependentUpon>UsuarioXEncuesta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\UsuarioXEncuesta.aspx.designer.cs">
+      <DependentUpon>UsuarioXEncuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministrarEncuestas\CrearEncuesta.aspx.cs">
+      <DependentUpon>CrearEncuesta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministrarEncuestas\CrearEncuesta.aspx.designer.cs">
+      <DependentUpon>CrearEncuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministrarEncuestas\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministrarEncuestas\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministrarEncuestas\Encuesta.aspx.cs">
+      <DependentUpon>Encuesta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministrarEncuestas\Encuesta.aspx.designer.cs">
+      <DependentUpon>Encuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Cuentas\AdministrarCuentas.aspx.cs">
+      <DependentUpon>AdministrarCuentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Cuentas\AdministrarCuentas.aspx.designer.cs">
+      <DependentUpon>AdministrarCuentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Cuentas\CrearUsuario.aspx.cs">
+      <DependentUpon>CrearUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Cuentas\CrearUsuario.aspx.designer.cs">
+      <DependentUpon>CrearUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Cuentas\CuentaDetalles.aspx.cs">
+      <DependentUpon>CuentaDetalles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Cuentas\CuentaDetalles.aspx.designer.cs">
+      <DependentUpon>CuentaDetalles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Encuesta\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Encuesta\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Encuesta\Encuesta.aspx.cs">
+      <DependentUpon>Encuesta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\Encuesta\Encuesta.aspx.designer.cs">
+      <DependentUpon>Encuesta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Usuario.ascx.cs">
+      <DependentUpon>Usuario.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control\Usuario.ascx.designer.cs">
+      <DependentUpon>Usuario.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Default.Master.cs">
+      <DependentUpon>Default.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\Default.Master.designer.cs">
+      <DependentUpon>Default.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Message\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Message\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Model\clsEmail.cs" />
+    <Compile Include="Model\clsLogin.cs" />
+    <Compile Include="Model\clsMenu.cs" />
+    <Compile Include="Model\clsSQL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="ArchivosExcel\" />
+    <Folder Include="Log\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Master\Default.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\SURVEYTOOLSHP.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SURVEYTOOLSHP.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50614</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/NMCASCC/SURVEYTOOLSHP</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
