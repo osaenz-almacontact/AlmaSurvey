@@ -8,7 +8,7 @@ using SURVEYTOOLSHP.Model;
 using System.Data;
 
 namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
-{ 
+{
     public partial class UsuarioXEncuesta : BasePage
     {
         private clsEmail email;
@@ -26,26 +26,28 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             String strSQL = "";
             Boolean returnError = false;
             DataSet ds = new DataSet();
-            if (this.pnl_filtro_X_Encuesta.Visible) {
-                if(this.cmb_encuesta.Items.Count>0 &&  this.cmb_tipo_encuesta.Items.Count > 0)
+            //if (this.pnl_filtro_X_Encuesta.Visible) {
+            if (this.cmb_encuesta.Items.Count > 0 && this.cmb_tipo_encuesta.Items.Count > 0)
                 strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE ID_TIPO_ENCUESTA = " + cmb_tipo_encuesta.SelectedItem.Value + " AND ID_ENCUESTA = " + cmb_encuesta.SelectedItem.Value + "'";
-                else
-                    strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
-            }
-            else if (this.pnl_filtro_usuario.Visible)
-            {
-                if (this.txt_filtro_usuario.Text.Length > 0)
-                    strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE USUARIO LIKE ''%" + this.txt_filtro_usuario.Text + "%'''";
-                else
-                    strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
-            }
-            else if (!this.pnl_filtro_X_Encuesta.Visible && !this.pnl_filtro_usuario.Visible) {
+            else
                 strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
-            }
+            // }
+            // else if (this.pnl_filtro_usuario.Visible)
+            //{
+            if (this.txt_filtro_usuario.Text.Length > 0)
+                strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE USUARIO LIKE ''%" + this.txt_filtro_usuario.Text + "%'''";
+            else
+                strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
+            //}
+            //else if (!this.pnl_filtro_X_Encuesta.Visible && !this.pnl_filtro_usuario.Visible) {
+            strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
+            //}
             ds = clsSQL.ejecutarProceConsulSQL(strSQL, ref returnError);
 
-            if (!returnError) {
-                if (ds.Tables.Count > 0) {
+            if (!returnError)
+            {
+                if (ds.Tables.Count > 0)
+                {
                     this.dgrid_ver_reporte.DataSource = ds;
                     this.dgrid_ver_reporte.DataBind();
                 }
@@ -55,12 +57,24 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         private void cargarTipoEncuesta()
         {
             Boolean returnError = false;
-            String strSQL = "SELECT DISTINCT " +
+            String strSQL = "";
+
+            if (HttpContext.Current.Session["PERMISOS"].ToString() == "4")
+            {
+                strSQL = "SELECT DISTINCT tip_id AS 'ID', tip_nombre AS 'NOMBRE' " +
+                          " FROM T_TIPO_ENCUESTA " +
+                          " WHERE tip_estado = 1 AND tip_id = 5";
+            }
+            else 
+            {
+                strSQL = "SELECT DISTINCT " +
                             "TIPO.tip_id AS 'ID', " +
                             "TIPO.tip_nombre AS 'NOMBRE' " +
                             "FROM T_ENCUESTA_USUARIO USUARIO " +
                             "INNER JOIN T_TIPO_ENCUESTA TIPO ON TIPO.tip_id = USUARIO.uen_tip_id " +
-                            "WHERE USUARIO.uen_estado = 1 AND TIPO.tip_estado = 1";
+                            "WHERE USUARIO.uen_estado = 1 AND TIPO.tip_estado = 1";                
+            }
+            
             clsSQL.llenarComboBox(ref returnError, strSQL, ref this.cmb_tipo_encuesta, "ID", "NOMBRE");
             if (!returnError)
             {
@@ -71,9 +85,10 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                 }
             }
         }
-        private void cargarEncuesta(){
-         Boolean returnError = false;
-         String strSQL="";
+        private void cargarEncuesta()
+        {
+            Boolean returnError = false;
+            String strSQL = "";
             if (this.cmb_tipo_encuesta.SelectedItem.Value == "1")
             {
                 strSQL = "SELECT DISTINCT " +
@@ -84,16 +99,51 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                                 "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id " +
                                 "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 1";
             }
-            else if (this.cmb_tipo_encuesta.SelectedItem.Value == "2") { 
-            strSQL="SELECT DISTINCT "+
-                    "ENCUESTA.enc_id AS 'ID', "+
-                    "ENCUESTA.enc_nombre AS 'NOMBRE' "+ 
-                    "FROM T_UNIDAD_ENCUESTA UNIDAD " +  
+            else if (this.cmb_tipo_encuesta.SelectedItem.Value == "2")
+            {
+                strSQL = "SELECT DISTINCT " +
+                        "ENCUESTA.enc_id AS 'ID', " +
+                        "ENCUESTA.enc_nombre AS 'NOMBRE' " +
+                        "FROM T_UNIDAD_ENCUESTA UNIDAD " +
+                        "INNER JOIN T_ISR ISR ON ISR.isr_uni_id = UNIDAD.uni_id " +
+                        "INNER JOIN T_ENCUESTA_USUARIO USUARIO ON USUARIO.uen_id = UNIDAD.uni_uen_id " +
+                        "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id " +
+                        "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 2";
+            }
+            else if (this.cmb_tipo_encuesta.SelectedItem.Value == "3")
+            {
+                strSQL = "SELECT DISTINCT " +
+                    "ENCUESTA.enc_id AS 'ID', " +
+                    "ENCUESTA.enc_nombre AS 'NOMBRE' " +
+                    "FROM T_UNIDAD_ENCUESTA UNIDAD " +
                     "INNER JOIN T_ISR ISR ON ISR.isr_uni_id = UNIDAD.uni_id " +
                     "INNER JOIN T_ENCUESTA_USUARIO USUARIO ON USUARIO.uen_id = UNIDAD.uni_uen_id " +
-                    "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id "+
-                    "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 2";
+                    "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id " +
+                    "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 3";
             }
+            else if (this.cmb_tipo_encuesta.SelectedItem.Value == "4")
+            {
+                strSQL = "SELECT DISTINCT " +
+                    "ENCUESTA.enc_id AS 'ID', " +
+                    "ENCUESTA.enc_nombre AS 'NOMBRE' " +
+                    "FROM T_UNIDAD_ENCUESTA UNIDAD " +
+                    "INNER JOIN T_ISR ISR ON ISR.isr_uni_id = UNIDAD.uni_id " +
+                    "INNER JOIN T_ENCUESTA_USUARIO USUARIO ON USUARIO.uen_id = UNIDAD.uni_uen_id " +
+                    "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id " +
+                    "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 4";
+            }
+            else if (this.cmb_tipo_encuesta.SelectedItem.Value == "5")
+            {
+                strSQL = "SELECT DISTINCT " +
+                    "ENCUESTA.enc_id AS 'ID', " +
+                    "ENCUESTA.enc_nombre AS 'NOMBRE' " +
+                    "FROM T_UNIDAD_ENCUESTA UNIDAD " +
+                    "INNER JOIN T_ISR ISR ON ISR.isr_uni_id = UNIDAD.uni_id " +
+                    "INNER JOIN T_ENCUESTA_USUARIO USUARIO ON USUARIO.uen_id = UNIDAD.uni_uen_id " +
+                    "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id " +
+                    "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 5";
+            }
+
             clsSQL.llenarComboBox(ref returnError, strSQL, ref this.cmb_encuesta, "ID", "NOMBRE");
         }
 
@@ -101,34 +151,35 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         {
             cargarGrilla();
         }
-       
-        
+
+
 
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            if (this.pnl_filtro_usuario.Visible) {
-                this.pnl_filtro_usuario.Visible = false;
-            }
-            if (!this.pnl_filtro_X_Encuesta.Visible) {
-                this.pnl_filtro_X_Encuesta.Visible = true;
-            }
+            //if (this.pnl_filtro_usuario.Visible) {
+            //    this.pnl_filtro_usuario.Visible = false;
+            //}
+            //if (!this.pnl_filtro_X_Encuesta.Visible) {
+            //    this.pnl_filtro_X_Encuesta.Visible = true;
+            //}
         }
 
         protected void lnk_btn_usuario_filtro_Click(object sender, EventArgs e)
         {
-            if (this.pnl_filtro_X_Encuesta.Visible)
-            {
-                this.pnl_filtro_X_Encuesta.Visible = false;
-            }
-            if (!this.pnl_filtro_usuario.Visible)
-            {
-                this.pnl_filtro_usuario.Visible = true;
-            }
+            //if (this.pnl_filtro_X_Encuesta.Visible)
+            //{
+            //    this.pnl_filtro_X_Encuesta.Visible = false;
+            //}
+            //if (!this.pnl_filtro_usuario.Visible)
+            //{
+            //    this.pnl_filtro_usuario.Visible = true;
+            //}
         }
 
         protected void dgrid_ver_reporte_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.Cells.Count>=17) {
+            if (e.Row.Cells.Count >= 17)
+            {
                 e.Row.Cells[2].Visible = false;
                 e.Row.Cells[5].Visible = false;
                 e.Row.Cells[7].Visible = false;
@@ -136,7 +187,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                 e.Row.Cells[11].Visible = false;
                 e.Row.Cells[12].Visible = false;
                 e.Row.Cells[13].Visible = false;
-                e.Row.Cells[15].Visible=false;
+                e.Row.Cells[15].Visible = false;
                 e.Row.Cells[14].Width = 100;
                 e.Row.Cells[16].Width = 100;
                 e.Row.Cells[17].Width = 100;
@@ -152,7 +203,8 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                     e.Row.Cells[1].Visible = true;
 
                 }
-                else {
+                else
+                {
 
                     e.Row.Cells[0].Visible = true;
                     e.Row.Cells[1].Visible = false;
@@ -168,7 +220,8 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
 
         protected void dgrid_ver_reporte_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            switch (e.CommandName) { 
+            switch (e.CommandName)
+            {
                 case "Select":
                     enviarCorreoEspecifico(Convert.ToInt32(e.CommandArgument));
                     break;
@@ -177,9 +230,10 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                     break;
             }
         }
-        private void enviarCorreoEspecifico(int numFila) {
-            String correoOrigen ="tcescchp@hp.com" ;
-          String [] destinario = new String [] {this.dgrid_ver_reporte.Rows[numFila].Cells[4].Text}; 
+        private void enviarCorreoEspecifico(int numFila)
+        {
+            String correoOrigen = "osaenz@almacontact.com.co";
+            String[] destinario = new String[] { this.dgrid_ver_reporte.Rows[numFila].Cells[4].Text };
             //String[] destinario = new String[] { "nestor-alfonso.sierra.mosos@hp.com"}; 
             String login = this.dgrid_ver_reporte.Rows[numFila].Cells[12].Text;
             String contrasenia = this.dgrid_ver_reporte.Rows[numFila].Cells[13].Text;
@@ -212,24 +266,25 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             {
                 Message("ENVIO DE SOLICITUD", "Petición enviada al usuario " + nombreUsuario, TipoMensaje.Validacion, true);
             }
-            }
+        }
 
-        private void abrirRespuestaEspecifica(int prmNumFila) {
+        private void abrirRespuestaEspecifica(int prmNumFila)
+        {
             String idUsuario = this.dgrid_ver_reporte.Rows[prmNumFila].Cells[2].Text;
             String idEncuesta = this.dgrid_ver_reporte.Rows[prmNumFila].Cells[7].Text;
             String evaluado = this.dgrid_ver_reporte.Rows[prmNumFila].Cells[10].Text;
             String nomEscuesta = this.dgrid_ver_reporte.Rows[prmNumFila].Cells[8].Text;
             String nomUsuario = this.dgrid_ver_reporte.Rows[prmNumFila].Cells[3].Text;
-            HttpContext.Current.Session["ENCUESTA_ID_USUARIO"]=idUsuario;
-            HttpContext.Current.Session["ENCUESTA_ID_ENCUESTA"]=idEncuesta;
-            HttpContext.Current.Session["ENCUESTA_EVALUADO"]=evaluado;
+            HttpContext.Current.Session["ENCUESTA_ID_USUARIO"] = idUsuario;
+            HttpContext.Current.Session["ENCUESTA_ID_ENCUESTA"] = idEncuesta;
+            HttpContext.Current.Session["ENCUESTA_EVALUADO"] = evaluado;
             HttpContext.Current.Session["ENCUESTA_NOM_ENCUESTA"] = nomEscuesta;
             HttpContext.Current.Session["ENCUESTA_NOM_USUARIO"] = nomUsuario;
 
 
             Response.Redirect("~/Content/MenuPrincipal/AdministradorRespuestas/RespuestaEspecifica.aspx");
-        
-        
+
+
         }
         protected void dgrid_ver_reporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

@@ -86,26 +86,32 @@ namespace SURVEYTOOLSHP.Master
             String strSQL = "EXEC SP_MM_DAR_FASE '" + fechaActual.ToString("yyyy/MM/dd") + "'";
             Boolean returnError = false;
             String fase = clsSQL.retornarDatoEscalar(ref returnError, strSQL) != null ? clsSQL.retornarDatoEscalar(ref returnError, strSQL).ToString() : "0";
-            if (fase == "0")
+            try
             {
-                strSQL = "SELECT SUBSTRING(CONVERT(VARCHAR(50),MAX(fas_nombre)),1,LEN(MAX(fas_nombre))) FROM T_FASE";
-                int ultimoNumero = Convert.ToInt32(clsSQL.retornarDatoEscalar(ref returnError, strSQL).ToString()) + 1;
-                strSQL = "SELECT CONVERT(VARCHAR,MAX(fas_fechaFinalizacion),111) FROM T_FASE";
-                DateTime fechaMax = Convert.ToDateTime(clsSQL.retornarDatoEscalar(ref returnError, strSQL).ToString());
-                DateTime fechafinal = fechaMax.AddMonths(6);
-                if (!returnError)
+                if (fase == "0")
                 {
-                    strSQL = "set dateformat ymd; INSERT INTO T_FASE(fas_nombre,fas_fechaComienzo,fas_fechaFinalizacion)" +
-                            "VALUES('Fase " + ultimoNumero + "','" + fechaMax.ToString("yyyy/MM/dd") + "','" + fechafinal.ToString("yyyy/MM/dd") + "')";
-                    clsSQL.ejecutarProceConsulSQL(strSQL, ref returnError);
+                    strSQL = "SELECT SUBSTRING(CONVERT(VARCHAR(50),MAX(fas_nombre)),1,LEN(MAX(fas_nombre))) FROM T_FASE";
+                    int ultimoNumero = Convert.ToInt32(clsSQL.retornarDatoEscalar(ref returnError, strSQL).ToString()) + 1;
+                    strSQL = "SELECT CONVERT(VARCHAR,MAX(fas_fechaFinalizacion),111) FROM T_FASE";
+                    DateTime fechaMax = Convert.ToDateTime(clsSQL.retornarDatoEscalar(ref returnError, strSQL).ToString());
+                    DateTime fechafinal = fechaMax.AddMonths(6);
                     if (!returnError)
                     {
-                        strSQL = "EXEC SP_MM_DAR_FASE '" + fechaActual.ToString("yyyy/MM/dd") + "'";
-                        fase = clsSQL.retornarDatoEscalar(ref returnError, strSQL).ToString();
+                        strSQL = "set dateformat ymd; INSERT INTO T_FASE(fas_nombre,fas_fechaComienzo,fas_fechaFinalizacion)" +
+                                "VALUES('Fase " + ultimoNumero + "','" + fechaMax.ToString("yyyy/MM/dd") + "','" + fechafinal.ToString("yyyy/MM/dd") + "')";
+                        clsSQL.ejecutarProceConsulSQL(strSQL, ref returnError);
+                        if (!returnError)
+                        {
+                            strSQL = "EXEC SP_MM_DAR_FASE '" + fechaActual.ToString("yyyy/MM/dd") + "'";
+                            fase = clsSQL.retornarDatoEscalar(ref returnError, strSQL).ToString();
+                        }
                     }
-                }
 
+                }
             }
+            catch{}
+
+             // TODO: Ajustar el cambio de fase de manera que no haya inconveniente al generar la fase siguiente.
 
             if (!returnError)
                 this.lbl_fase.Text = "Fase Actual:" + fase;
