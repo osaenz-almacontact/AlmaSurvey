@@ -111,7 +111,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         {
             GridView newdaGridView = new GridView();
             cargarGrillaExcel(ref newdaGridView);
-            exportarGridView_Excel(newdaGridView, "Respuesta detallada");
+            exportarGridView_Excel(newdaGridView, "Respuesta detallada", 2);
 
         }
         private void cargarGrillaExcel(ref GridView prmGridView) {

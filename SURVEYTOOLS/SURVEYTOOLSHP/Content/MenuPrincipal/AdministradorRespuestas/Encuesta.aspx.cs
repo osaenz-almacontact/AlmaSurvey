@@ -341,7 +341,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             GridView newDataGrid = new GridView();
 
             cargarrillaExcel(ref newDataGrid);
-            exportarGridView_Excel(newDataGrid, "Listar Respuesta");
+            exportarGridView_Excel(newDataGrid, "Listar Respuesta", 2);
             
         }
         private void cargarrillaExcel(ref GridView prmDGrid)

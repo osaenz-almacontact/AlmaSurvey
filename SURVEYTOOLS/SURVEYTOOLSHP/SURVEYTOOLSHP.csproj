@@ -78,6 +78,9 @@
     <Content Include="Content\MenuPrincipal\AdministradorRespuestas\Encuesta.aspx" />
     <Content Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaDetalles.aspx" />
     <Content Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaUnica.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteCyL.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteRetiro.aspx" />
+    <Content Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteSatisfaccion.aspx" />
     <Content Include="Content\MenuPrincipal\AdministradorRespuestas\RespuestaEspecifica.aspx" />
     <Content Include="Content\MenuPrincipal\AdministradorRespuestas\UsuarioXEncuesta.aspx" />
     <Content Include="Content\MenuPrincipal\AdministrarEncuestas\CrearEncuesta.aspx" />
@@ -176,6 +179,27 @@
     </Compile>
     <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ListarRespuestaUnica.aspx.designer.cs">
       <DependentUpon>ListarRespuestaUnica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteCyL.aspx.cs">
+      <DependentUpon>ReporteCyL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteCyL.aspx.designer.cs">
+      <DependentUpon>ReporteCyL.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteRetiro.aspx.cs">
+      <DependentUpon>ReporteRetiro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteRetiro.aspx.designer.cs">
+      <DependentUpon>ReporteRetiro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteSatisfaccion.aspx.cs">
+      <DependentUpon>ReporteSatisfaccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\ReporteSatisfaccion.aspx.designer.cs">
+      <DependentUpon>ReporteSatisfaccion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Content\MenuPrincipal\AdministradorRespuestas\RespuestaEspecifica.aspx.cs">
       <DependentUpon>RespuestaEspecifica.aspx</DependentUpon>

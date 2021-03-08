@@ -212,7 +212,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministrarEncuestas
 
         protected void img_btn_exportar_excel_Click(object sender, ImageClickEventArgs e)
         {
-            exportarGridView_Excel(this.dgrid_Encuestas, "Encuestas");
+            exportarGridView_Excel(this.dgrid_Encuestas, "Encuestas", 2);
         }
 
         protected void rdl_list_copiar_Preguntas_SelectedIndexChanged(object sender, EventArgs e)

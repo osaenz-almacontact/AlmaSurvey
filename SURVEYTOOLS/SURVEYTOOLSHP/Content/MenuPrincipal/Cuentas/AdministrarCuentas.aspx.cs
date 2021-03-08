@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -95,7 +93,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.Cuentas
         private void cargarTipoEncuestaISR()
         {
             //String strSQL = "SELECT tip_id AS 'ID',tip_nombre AS 'NOMBRE' FROM T_TIPO_ENCUESTA WHERE tip_estado = 1 AND tip_id = 2 ";
-            String strSQL = "SELECT tip_id AS 'ID',tip_nombre AS 'NOMBRE' FROM T_TIPO_ENCUESTA WHERE tip_estado = 1 AND tip_id = 2  OR tip_estado = 1 AND tip_id = 3  OR tip_estado = 1 AND tip_id = 4";
+            String strSQL = "SELECT tip_id AS 'ID',tip_nombre AS 'NOMBRE' FROM T_TIPO_ENCUESTA WHERE tip_estado = 1 AND tip_id = 2  OR tip_estado = 1 AND tip_id = 3  OR tip_estado = 1 AND tip_id = 4 AND 5";
             Boolean returnError = false;
             clsSQL.llenarComboBox(ref returnError, strSQL, ref this.cmb_tipo_de_encuesta_isr, "ID", "NOMBRE");
         }
@@ -414,7 +412,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.Cuentas
             GridView newdGrid = new GridView();
             cargarGrillaExcel(ref newdGrid);
 
-            exportarGridView_Excel(newdGrid, "Cuentas");
+            exportarGridView_Excel(newdGrid, "Cuentas", 2);
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)

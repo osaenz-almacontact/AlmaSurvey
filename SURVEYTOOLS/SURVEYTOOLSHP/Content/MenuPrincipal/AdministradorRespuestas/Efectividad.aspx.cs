@@ -552,7 +552,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             GridView newDataGrid = new GridView();
             cargarGrillaExcel(ref newDataGrid);
             
-            exportarGridView_Excel(newDataGrid, "Efectividad " + this.cmb_tipo_encuesta.SelectedItem.Text  + " " + this.cmb_encuesta.SelectedItem.Text);
+            exportarGridView_Excel(newDataGrid, "Efectividad " + this.cmb_tipo_encuesta.SelectedItem.Text  + " " + this.cmb_encuesta.SelectedItem.Text, 2);
         }
 
         private void cargarGrillaExcel( ref GridView prmdGrid)

@@ -284,10 +284,10 @@ public class BasePage : Page
     public String crearRetornarCuerpoCorreo(String prmTituloMensaje, String prmDescripcion, String prmFirma, String prmArea)
     {
 
-        String titulo = "<table align='center' style='margin: 10px 50px 10px 50px;width:600px;font-family:HP Simplified;' cellpadding=0 cellspacing=0>";
-        titulo += "<tr><td><p style='font-size:30px;color:#214023;text-align:center;margin-left:20px;margin-top:25px;font-family:HP Simplified;'>SURVEYHPTOOLS</p></strong></td></tr>";
-        titulo += "<tr><td><hr style='color:#214023' size='5' /></td></tr>";
-        titulo += "<tr><td style='font-size:18px;color:White;background-color:#214023;text-align:center'><strong>" + prmTituloMensaje + "</strong></td></tr>";
+        String titulo = "<table align='center' style='margin: 10px 50px 10px 50px;width:600px;font-family:century gothic;' cellpadding=0 cellspacing=0>";
+        titulo += "<tr><td><p style='font-size:30px;color:#12679B;text-align:center;margin-left:20px;margin-top:25px;font-family:century gothic;'>ALMA-SURVEY</p></strong></td></tr>";
+        titulo += "<tr><td><hr style='color:#12679B' size='5' /></td></tr>";
+        titulo += "<tr><td style='font-size:18px;color:White;background-color:#12679B;text-align:center'><strong>" + prmTituloMensaje + "</strong></td></tr>";
 
         String descripcion = "<tr><td>";
         descripcion += prmDescripcion;
@@ -341,7 +341,7 @@ public class BasePage : Page
     #endregion
     #region exportar de un datagrid a un libor en excel
 
-    public void exportarGridView_Excel(GridView prmDataGrid, String prmNombreLibro)
+    public void exportarGridView_Excel(GridView prmDataGrid, String prmNombreLibro, int tipoExtraccion)
     {
 
         Response.ClearContent();
@@ -353,13 +353,20 @@ public class BasePage : Page
         HtmlTextWriter htw = new HtmlTextWriter(sw);
         prmDataGrid.AllowPaging = false;
 
-        prmDataGrid.GridLines = GridLines.Both;
-        prmDataGrid.HeaderStyle.Font.Bold = true;
-        prmDataGrid.HeaderStyle.BackColor = System.Drawing.Color.FromName("#214023");
-        prmDataGrid.HeaderStyle.ForeColor = System.Drawing.Color.White;
-        prmDataGrid.AlternatingRowStyle.BackColor = System.Drawing.Color.White;
-        prmDataGrid.RowStyle.BackColor = System.Drawing.Color.FromName("#ECFDEF");
-        prmDataGrid.CssClass = "css_fuente_letra";
+        if (tipoExtraccion == 1)
+        {
+            //TO DO  Importacion tabla inamica
+        }
+        else if (tipoExtraccion == 2)
+        {
+            prmDataGrid.GridLines = GridLines.Both;
+            prmDataGrid.HeaderStyle.Font.Bold = true;
+            prmDataGrid.HeaderStyle.BackColor = System.Drawing.Color.FromName("#214023");
+            prmDataGrid.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            prmDataGrid.AlternatingRowStyle.BackColor = System.Drawing.Color.White;
+            prmDataGrid.RowStyle.BackColor = System.Drawing.Color.FromName("#ECFDEF");
+            prmDataGrid.CssClass = "css_fuente_letra";
+        }
         prmDataGrid.RenderControl(htw);
         Response.Write(sw.ToString());
         Response.End();
