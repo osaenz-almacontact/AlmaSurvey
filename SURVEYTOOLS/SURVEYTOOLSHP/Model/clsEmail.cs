@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
+using System.Net;
 using System.Net.Mail;
 
 namespace SURVEYTOOLSHP.Model
@@ -11,8 +9,9 @@ namespace SURVEYTOOLSHP.Model
     {
         BasePage objMensaje = new BasePage();
         Boolean returnError = false;
-        
-        public Boolean EnviarEmail(MailAddressCollection prmDireccionCorreosDestino, String prmDirreccioCorreoOrigen, String prmNombreCorreo, String prmAsuntoCorreo, String prmContenidoCorreo) {
+
+        public Boolean EnviarEmail(MailAddressCollection prmDireccionCorreosDestino, String prmDirreccioCorreoOrigen, String prmNombreCorreo, String prmAsuntoCorreo, String prmContenidoCorreo)
+        {
             MailMessage mensaje = new MailMessage();
             SmtpClient SMTP = new SmtpClient();
             Boolean correoError = false;
@@ -23,14 +22,24 @@ namespace SURVEYTOOLSHP.Model
                     mensaje.To.Add(addr);
 
                 }
-                mensaje.From = new MailAddress(prmDirreccioCorreoOrigen, prmNombreCorreo);
+
+                var credencial = new NetworkCredential
+                {
+                    UserName = "comunicaciones.almacotnact@gmail.com",
+                    Password = "Almacom2020*",
+                };
+
+                mensaje.From = new MailAddress("oscareo@misena.edu.co", prmNombreCorreo);
                 mensaje.Subject = prmAsuntoCorreo;
                 mensaje.Body = prmContenidoCorreo;
                 mensaje.IsBodyHtml = true;
-                SMTP.Host = "GVW1341EXA";
-                SMTP.Port = 25;
-                SMTP.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
-                SMTP.EnableSsl = false;
+
+                SMTP.Host = "smtp.gmail.com";
+                SMTP.Port = 587;
+                SMTP.UseDefaultCredentials = false;
+                SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SMTP.EnableSsl = true;
+                SMTP.Credentials = credencial;
                 SMTP.Send(mensaje);
 
             }
@@ -46,54 +55,65 @@ namespace SURVEYTOOLSHP.Model
                 objMensaje.Message("¡Error!, ", e.Message, BasePage.TipoMensaje.Error, false);
 
             }
-            finally {
+            finally
+            {
                 mensaje = null;
                 SMTP = null;
             }
             return correoError;
         }
-        public MailAddressCollection buscarCorreosDetinatariosXConsultaIdUser(String[] prmNTs) {
+        public MailAddressCollection buscarCorreosDetinatariosXConsultaIdUser(String[] prmNTs)
+        {
             MailAddressCollection mailCorreo = new MailAddressCollection();
             String NTs = "";
-            for (int i = 0; i < prmNTs.Length; i++) {
-                if (prmNTs[i] != null) {
+            for (int i = 0; i < prmNTs.Length; i++)
+            {
+                if (prmNTs[i] != null)
+                {
                     if (i == prmNTs.Length)
                     {
-                        NTs = NTs + "'"+ prmNTs[i]+"'";
+                        NTs = NTs + "'" + prmNTs[i] + "'";
                     }
-                    else {
+                    else
+                    {
                     }
-                NTs=NTs+"'"+prmNTs[i]+"',";
+                    NTs = NTs + "'" + prmNTs[i] + "',";
                 }
             }
             DataSet ds = new DataSet();
             String strSQL = "SELECT DISTINCT [E-mail] FROM WHERE NT IN (" + NTs + ")";
             ds = clsSQL.ejecutarProceConsulSQL(strSQL, ref returnError);
-            if (ds.Tables[0].Rows.Count == 1) {
-                foreach (DataRow dRow in ds.Tables[0].Rows) {
+            if (ds.Tables[0].Rows.Count == 1)
+            {
+                foreach (DataRow dRow in ds.Tables[0].Rows)
+                {
                     mailCorreo.Add(dRow["[E-mail]"].ToString());
                 }
             }
-          
+
             return mailCorreo;
         }
-        public MailAddressCollection darDestinatarios(String[] prmDestinatarios) {
+        public MailAddressCollection darDestinatarios(String[] prmDestinatarios)
+        {
             MailAddressCollection mailAdress = new MailAddressCollection();
-            try {
-                for (int destinatario=0; destinatario < prmDestinatarios.Length; destinatario++) {
+            try
+            {
+                for (int destinatario = 0; destinatario < prmDestinatarios.Length; destinatario++)
+                {
                     if (prmDestinatarios[destinatario] != null)
                     {
                         mailAdress.Add(prmDestinatarios[destinatario]);
                     }
-                    
+
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 objMensaje.Message("¡Error!: ", e.Message, BasePage.TipoMensaje.Error, false);
                 return null;
             }
             return mailAdress;
         }
     }
-    
+
 }

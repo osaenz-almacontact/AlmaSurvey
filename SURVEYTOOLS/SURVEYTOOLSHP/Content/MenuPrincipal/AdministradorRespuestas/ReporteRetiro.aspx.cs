@@ -46,7 +46,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         }
 
 
-        protected void dgrid_reporte_satisfaccion_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void dgrid_reporte_retiro_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             this.dgrid_reporte_retiro.PageIndex = e.NewPageIndex;
             cargarGrilla();
@@ -75,7 +75,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             GridView newDataGrid = new GridView();
 
             cargarrillaExcel(ref newDataGrid);
-            exportarGridView_Excel(newDataGrid, "Listar Respuesta Satisdaccion", 1);
+            exportarGridView_Excel(newDataGrid, "Listar Respuesta Retiro", 1);
 
         }
 

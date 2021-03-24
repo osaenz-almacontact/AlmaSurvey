@@ -34,10 +34,10 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             // }
             // else if (this.pnl_filtro_usuario.Visible)
             //{
-            if (this.txt_filtro_usuario.Text.Length > 0)
-                strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE USUARIO LIKE ''%" + this.txt_filtro_usuario.Text + "%'''";
-            else
-                strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
+            //if (this.txt_filtro_usuario.Text.Length > 0)
+            //    strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE USUARIO LIKE ''%" + this.txt_filtro_usuario.Text + "%'''";
+            //else
+            //    strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
             //}
             //else if (!this.pnl_filtro_X_Encuesta.Visible && !this.pnl_filtro_usuario.Visible) {
             strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
@@ -138,7 +138,6 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                     "ENCUESTA.enc_id AS 'ID', " +
                     "ENCUESTA.enc_nombre AS 'NOMBRE' " +
                     "FROM T_UNIDAD_ENCUESTA UNIDAD " +
-                    "INNER JOIN T_ISR ISR ON ISR.isr_uni_id = UNIDAD.uni_id " +
                     "INNER JOIN T_ENCUESTA_USUARIO USUARIO ON USUARIO.uen_id = UNIDAD.uni_uen_id " +
                     "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id " +
                     "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 5";
