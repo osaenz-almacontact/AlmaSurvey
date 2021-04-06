@@ -25,7 +25,7 @@ namespace SURVEYTOOLSHP.Model
 
                 var credencial = new NetworkCredential
                 {
-                    UserName = "comunicaciones.almacotnact@gmail.com",
+                    UserName = "comunicaciones.almacontact@gmail.com",
                     Password = "Almacom2020*",
                 };
 

@@ -53,7 +53,7 @@
 
 
             <div class="container">
-                <asp:Button ID="Button1" runat="server" Text="Filtrar" CssClass="btn btn-primary btn-lg btn-block" OnClick="Button1_Click" />
+                <asp:Button ID="BtnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary btn-lg btn-block" OnClick="BtnFiltrar_Click" />
             </div>
 
             <hr />

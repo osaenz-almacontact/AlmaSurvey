@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -29,10 +27,12 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             //if (this.pnl_filtro_X_Encuesta.Visible) {
             if (this.cmb_encuesta.Items.Count > 0 && this.cmb_tipo_encuesta.Items.Count > 0)
                 strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE ID_TIPO_ENCUESTA = " + cmb_tipo_encuesta.SelectedItem.Value + " AND ID_ENCUESTA = " + cmb_encuesta.SelectedItem.Value + "'";
+            if (this.txt_filtro_usuario.Text != null || this.txt_filtro_usuario.Text != "")
+                strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE USUARIO LIKE ''%" + this.txt_filtro_usuario.Text + "%'''";
             else
                 strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
-            // }
-            // else if (this.pnl_filtro_usuario.Visible)
+
+
             //{
             //if (this.txt_filtro_usuario.Text.Length > 0)
             //    strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE USUARIO LIKE ''%" + this.txt_filtro_usuario.Text + "%'''";
@@ -40,7 +40,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             //    strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
             //}
             //else if (!this.pnl_filtro_X_Encuesta.Visible && !this.pnl_filtro_usuario.Visible) {
-            strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
+            //strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
             //}
             ds = clsSQL.ejecutarProceConsulSQL(strSQL, ref returnError);
 
@@ -53,28 +53,18 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                 }
             }
 
+            this.txt_filtro_usuario.Text = "";
+
         }
         private void cargarTipoEncuesta()
         {
             Boolean returnError = false;
-            String strSQL = "";
-
-            if (HttpContext.Current.Session["PERMISOS"].ToString() == "4")
-            {
-                strSQL = "SELECT DISTINCT tip_id AS 'ID', tip_nombre AS 'NOMBRE' " +
-                          " FROM T_TIPO_ENCUESTA " +
-                          " WHERE tip_estado = 1 AND tip_id = 5";
-            }
-            else 
-            {
-                strSQL = "SELECT DISTINCT " +
+            String strSQL = "SELECT DISTINCT " +
                             "TIPO.tip_id AS 'ID', " +
                             "TIPO.tip_nombre AS 'NOMBRE' " +
                             "FROM T_ENCUESTA_USUARIO USUARIO " +
                             "INNER JOIN T_TIPO_ENCUESTA TIPO ON TIPO.tip_id = USUARIO.uen_tip_id " +
-                            "WHERE USUARIO.uen_estado = 1 AND TIPO.tip_estado = 1";                
-            }
-            
+                            "WHERE USUARIO.uen_estado = 1 AND TIPO.tip_estado = 1";
             clsSQL.llenarComboBox(ref returnError, strSQL, ref this.cmb_tipo_encuesta, "ID", "NOMBRE");
             if (!returnError)
             {
@@ -142,7 +132,6 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
                     "INNER JOIN T_ENCUESTA ENCUESTA ON ENCUESTA.enc_id = UNIDAD.uni_enc_id " +
                     "WHERE USUARIO.uen_estado = 1 AND ENCUESTA.enc_estado= 1 AND UNIDAD.uni_estado = 1 AND USUARIO.uen_tip_id = 5";
             }
-
             clsSQL.llenarComboBox(ref returnError, strSQL, ref this.cmb_encuesta, "ID", "NOMBRE");
         }
 
@@ -231,13 +220,15 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         }
         private void enviarCorreoEspecifico(int numFila)
         {
-            String correoOrigen = "osaenz@almacontact.com.co";
+            String correoOrigen = "deimian5@outlook.es";
             String[] destinario = new String[] { this.dgrid_ver_reporte.Rows[numFila].Cells[4].Text };
             //String[] destinario = new String[] { "nestor-alfonso.sierra.mosos@hp.com"}; 
             String login = this.dgrid_ver_reporte.Rows[numFila].Cells[12].Text;
             String contrasenia = this.dgrid_ver_reporte.Rows[numFila].Cells[13].Text;
             String nombreUsuario = this.dgrid_ver_reporte.Rows[numFila].Cells[3].Text;
             String encuesta = this.dgrid_ver_reporte.Rows[numFila].Cells[8].Text;
+            String TipoEncuesta = HttpUtility.HtmlDecode(this.dgrid_ver_reporte.Rows[numFila].Cells[6].Text);
+            String idUsuario = this.dgrid_ver_reporte.Rows[numFila].Cells[2].Text;
 
             //String html = "<div style='padding:15px;'>" +
             //              "<p style='margin:10px 0px 10px 10px;font-family:HP Simplified;font-size:14px'><strong>Usuario: </strong> " + nombreUsuario + "</p>" +
@@ -247,18 +238,37 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             //              "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#214023'><strong>Contraseña : </strong><a style='color:#585964'>" + contrasenia + "</a></p></div>";
             //html = crearRetornarCuerpoCorreo("RECORDATORIO DE ENVIÓ DE RESPUESTA ", html, "SCC HP", "");
 
-            String html = "<div style='padding:15px;'>" +
-                         "<p style='margin:10px 0px 10px 10px;font-family:HP Simplified;font-size:14px'><strong>Usuario: </strong> " + nombreUsuario + "</p>" +
-                         "<p style='margin:0px 0px 20px 10px;font-family:HP Simplified;font-size:14px;color:#585964'><strong>Para el SCC </strong> saber su opinión es una prioridad con el fin de tener una percepción de su relación comercial y/o el servicio prestado, de esta manera retroalimentar la gestión interna. Le agradecemos su objetividad y disposición para contestar las siguientes encuestas (siga este <a href='http://bog01nmcahp/NMCASCC/SURVEYTOOLSHP/'>link</a>) </p>" +
-                         "<p style='margin:0px 0px 20px 10px;font-family:HP Simplified;font-size:14px;color:#585964'>Si quiere conocer más acerca de este procedimiento lo invitamos a visitar el siguiente <a href='https://sway.com/Q1l1UdR_TpZuTtMx'>link</a></p>" +
-                         "<p style='margin:0px 0px 20px 10px;font-family:HP Simplified;font-size:14px;color:#585964'>Si presenta algún problema al ingresar a la encuesta pude ingresar en el siguiente <a href='https://sway.com/3UB1GZdF8Uc8Xwz2'>link</a></p>" +
-                         "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#214023'><strong>Recuerde sus datos:</strong></p>" +
-                          "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#214023'><strong>Usuario : </strong><a style='color:#585964'>" + login + "</a></p>" +
-                          "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#214023'><strong>Contraseña : </strong><a style='color:#585964'>" + contrasenia + "</a></p></div>";
-            html = crearRetornarCuerpoCorreo("RECORDATORIO DE ENVIÓ DE RESPUESTA ", html, "SCC HP", "");
+            String html = "";
 
-            email.EnviarEmail(email.darDestinatarios(destinario), correoOrigen, "SURVEYTOOLSHP", "ENCUESTAS TCE SCC **RECORDATORIO DE ENVIÓ DE RESPUESTA**", html);
-            String strSQL = "UPDATE T_ENCUESTA_USUARIO SET uen_envioCorreo = 2 , uen_fechaEnvioCorreo = GETDATE() WHERE uen_estado = 1 AND uen_usu_id  = " + this.dgrid_ver_reporte.Rows[numFila].Cells[3].Text;
+            if (TipoEncuesta == "Satisfacción")
+            {
+                html = "<div style='padding:15px;'>" +
+                             "<p style='margin:10px 0px 10px 10px;font-family:century gothic;font-size:14px'><strong>Usuario: </strong> " + nombreUsuario + "</p>" +
+                             "<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'><strong>Para Almacontact </strong> saber su opinión es una prioridad con el fin de tener una percepción de su relación comercial y/o el servicio prestado, de esta manera retroalimentar la gestión interna. Le agradecemos su objetividad y disposición para contestar las siguientes encuestas (siga este <a href='http://190.144.63.5:81/AlmaSurvey/Default.aspx'>link</a>) </p>" +
+                             //"<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Si quiere conocer más acerca de este procedimiento lo invitamos a visitar el siguiente <a href='https://sway.com/Q1l1UdR_TpZuTtMx'>link</a></p>" +
+                             //"<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Si presenta algún problema al ingresar a la encuesta pude ingresar en el siguiente <a href='https://sway.com/3UB1GZdF8Uc8Xwz2'>link</a></p>" +
+                             "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#12679B'><strong>Recuerde sus datos:</strong></p>" +
+                              "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#12679B'><strong>Usuario : </strong><a style='color:#585964'>" + login + "</a></p>" +
+                              "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#12679B'><strong>Contraseña : </strong><a style='color:#585964'>" + contrasenia + "</a></p></div>";
+                html = crearRetornarCuerpoCorreo("RECORDATORIO DE ENVIÓ DE RESPUESTA ", html, "Samsung", "");
+            }
+            else if (TipoEncuesta == "Retiro")
+            {
+                html = "<div style='padding:15px;'>" +
+                         "<p style='margin:10px 0px 10px 10px;font-family:century gothic;font-size:14px'><strong>Usuario: </strong> " + nombreUsuario + "</p>" +
+                         "<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'><strong>Para Almacontact </strong> es muy importante conocer su opinión y las impresiones acerca de algunos aspectos de acuerdo, con su experiencia en el paso por la compañía. Su respuesta nos servirá para comprender los motivos de su partida y nuestras oportunidades de mejora.</p>" +
+                         "<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Agracemos mucho su disposición y honestidad al momento de responder las siguientes preguntas. (siga este <a href='http://190.144.63.5:81/AlmaSurvey/Default.aspx'>link</a>) </p>" +
+                         //"<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Si quiere conocer más acerca de este procedimiento lo invitamos a visitar el siguiente <a href='https://sway.com/Q1l1UdR_TpZuTtMx'>link</a></p>" +
+                         //"<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Si presenta algún problema al ingresar a la encuesta pude ingresar en el siguiente <a href='https://sway.com/3UB1GZdF8Uc8Xwz2'>link</a></p>" +
+                         "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#12679B'><strong>Recuerde sus datos:</strong></p>" +
+                          "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#12679B'><strong>Usuario : </strong><a style='color:#585964'>" + login + "</a></p>" +
+                          "<p style='margin:0px 0px 10px 50px;font-size:16px;color:#12679B'><strong>Contraseña : </strong><a style='color:#585964'>" + contrasenia + "</a></p></div>";
+                html = crearRetornarCuerpoCorreo("RECORDATORIO DE ENVIÓ DE RESPUESTA ", html, "Equipo RRHH", "");
+            }
+
+
+            email.EnviarEmail(email.darDestinatarios(destinario), correoOrigen, "ALMA-SURVEY", "ALMACONTACT - Encuesta " + TipoEncuesta + " " + " **RECORDATORIO DE ENVIÓ DE RESPUESTA**", html);
+            String strSQL = "UPDATE T_ENCUESTA_USUARIO SET uen_envioCorreo = 2 , uen_fechaEnviado = GETDATE() WHERE uen_estado = 1 AND uen_usu_id  = " + idUsuario;
             Boolean returnError = false;
             clsSQL.ejecutarProceConsulSQL(strSQL, ref returnError);
             if (!returnError)
@@ -288,6 +298,11 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         protected void dgrid_ver_reporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             this.dgrid_ver_reporte.PageIndex = e.NewPageIndex;
+            cargarGrilla();
+        }
+
+        protected void BtnFiltrar_Click(object sender, EventArgs e)
+        {
             cargarGrilla();
         }
     }

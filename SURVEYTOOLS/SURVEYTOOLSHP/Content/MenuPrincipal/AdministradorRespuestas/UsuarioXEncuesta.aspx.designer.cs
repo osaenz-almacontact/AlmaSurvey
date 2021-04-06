@@ -51,13 +51,13 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         protected global::System.Web.UI.WebControls.TextBox txt_filtro_usuario;
 
         /// <summary>
-        /// Control Button1.
+        /// Control BtnFiltrar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button BtnFiltrar;
 
         /// <summary>
         /// Control dgrid_ver_reporte.
