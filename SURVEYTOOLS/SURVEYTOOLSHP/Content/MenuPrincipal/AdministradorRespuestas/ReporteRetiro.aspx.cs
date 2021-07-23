@@ -78,7 +78,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         {
             String strSQL = "";
 
-            strSQL = "SELECT pre_id AS 'ID', pre_descripcion AS 'PREGUNTA', pre_tip_id AS 'TIPO' FROM T_PREGUNTA WHERE pre_enc_id = 32 AND pre_estado = 1";
+            strSQL = "SELECT pre_id AS 'ID', pre_descripcion AS 'PREGUNTA', pre_tip_id AS 'TIPO' FROM T_PREGUNTA WHERE pre_enc_id = 33 AND pre_estado = 1";
 
             Boolean returnError = false;
 
@@ -151,7 +151,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         {
             String strSQL = "";
 
-            strSQL = "EXEC [SP_MM_REPORTE_ENCUESTAS] 32," + this.cmb_fase.SelectedItem.Value;
+            strSQL = "EXEC [SP_MM_REPORTE_ENCUESTAS] 33," + this.cmb_fase.SelectedItem.Value;
 
 
             Boolean returnError = false;

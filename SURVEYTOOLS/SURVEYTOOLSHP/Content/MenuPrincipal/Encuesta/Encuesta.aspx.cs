@@ -76,7 +76,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.Encuesta
                     lbl_evaluado.Visible = false;
                     break;
                 case 5:
-                    //cargarComboEvaluado(5, numEncuesta);
+                    cargarComboEvaluado(5, numEncuesta);
                     DivMensajeStandar.Visible = false;
                     DivMensajeLiderazgo.Visible = false;
                     DivMensajeAutoevaluacion.Visible = false;
@@ -156,6 +156,28 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.Encuesta
                     break;
 
                 case 4:
+                    strSQL = "SELECT DISTINCT " +
+                    "ISR.isr_id AS 'ID'," +
+                    "ISR.isr_nombre AS 'NOMBRE' " +
+                    "FROM T_ISR ISR " +
+                    "INNER JOIN T_UNIDAD_ENCUESTA ENCUESTA ON ENCUESTA.uni_id  = ISR.isr_uni_id " +
+                    "INNER JOIN T_ENCUESTA_USUARIO USUARIO ON USUARIO.uen_id = ENCUESTA.uni_uen_id " +
+                    "WHERE ISR.isr_estado  = 1 " +
+                    "AND ENCUESTA.uni_estado = 1 " +
+                    "AND USUARIO.uen_estado = 1 " +
+                    "AND ISR.isr_est_encuesta = 1 " +
+                    "AND USUARIO.uen_usu_id = " + HttpContext.Current.Session["ID_USER"].ToString() +
+                    "AND ENCUESTA.uni_enc_id = " + prmIdEncuesta + " " +
+                    "AND USUARIO.uen_fas_id = " + numFase;
+                    clsSQL.llenarComboBox(ref returnError, strSQL, ref this.cmb_cagar_combo_evaluado, "ID", "NOMBRE");
+                    this.lbl_evaluado.Text = "Lider de area: ";
+                    if (this.cmb_cagar_combo_evaluado.Items.Count == 0)
+                    {
+                        Response.Redirect("~/Content/Home.aspx");
+                    }
+                    break;
+
+                case 5:
                     strSQL = "SELECT DISTINCT " +
                     "ISR.isr_id AS 'ID'," +
                     "ISR.isr_nombre AS 'NOMBRE' " +

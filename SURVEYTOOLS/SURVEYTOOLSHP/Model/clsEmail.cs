@@ -25,11 +25,11 @@ namespace SURVEYTOOLSHP.Model
 
                 var credencial = new NetworkCredential
                 {
-                    UserName = "comunicaciones.almacontact@gmail.com",
-                    Password = "Almacom2020*",
+                    UserName = "encuestas.almacontact@gmail.com",
+                    Password = "Almacontact2021",
                 };
 
-                mensaje.From = new MailAddress("oscareo@misena.edu.co", prmNombreCorreo);
+                mensaje.From = new MailAddress("encuestas.almacontact@gmail.com", prmNombreCorreo);
                 mensaje.Subject = prmAsuntoCorreo;
                 mensaje.Body = prmContenidoCorreo;
                 mensaje.IsBodyHtml = true;

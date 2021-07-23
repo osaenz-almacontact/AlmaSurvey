@@ -27,10 +27,10 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             //if (this.pnl_filtro_X_Encuesta.Visible) {
             if (this.cmb_encuesta.Items.Count > 0 && this.cmb_tipo_encuesta.Items.Count > 0)
                 strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE ID_TIPO_ENCUESTA = " + cmb_tipo_encuesta.SelectedItem.Value + " AND ID_ENCUESTA = " + cmb_encuesta.SelectedItem.Value + "'";
-            if (this.txt_filtro_usuario.Text != null || this.txt_filtro_usuario.Text != "")
+            else if ( this.txt_filtro_usuario.Text != "")
                 strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta WHERE USUARIO LIKE ''%" + this.txt_filtro_usuario.Text + "%'''";
             else
-                strSQL = "EXEC [SP_MM_LISTA_USUARIO_X_ENCUESTA] 'SELECT * FROM #tmpFinalUsuarioXEncuesta'";
+                strSQL = "  ";
 
 
             //{
@@ -220,7 +220,8 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
         }
         private void enviarCorreoEspecifico(int numFila)
         {
-            String correoOrigen = "deimian5@outlook.es";
+            //TO DO Configuracion futura por tipo de encuesta 
+            String correoOrigen = "comunicaciones.almacontact@gmail.com";
             String[] destinario = new String[] { this.dgrid_ver_reporte.Rows[numFila].Cells[4].Text };
             //String[] destinario = new String[] { "nestor-alfonso.sierra.mosos@hp.com"}; 
             String login = this.dgrid_ver_reporte.Rows[numFila].Cells[12].Text;
@@ -256,7 +257,7 @@ namespace SURVEYTOOLSHP.Content.MenuPrincipal.AdministradorRespuestas
             {
                 html = "<div style='padding:15px;'>" +
                          "<p style='margin:10px 0px 10px 10px;font-family:century gothic;font-size:14px'><strong>Usuario: </strong> " + nombreUsuario + "</p>" +
-                         "<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'><strong>Para Almacontact </strong> es muy importante conocer su opinión y las impresiones acerca de algunos aspectos de acuerdo, con su experiencia en el paso por la compañía. Su respuesta nos servirá para comprender los motivos de su partida y nuestras oportunidades de mejora.</p>" +
+                         "<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'><strong>Para Almacontact </strong> es muy importante conocer su opinión sobre algunos aspectos de su experiencia en el paso por la compañía. Su respuesta nos servirá para comprender los motivos de su partida y avanzar en nuestras oportunidades de mejora.</p>" +
                          "<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Agracemos mucho su disposición y honestidad al momento de responder las siguientes preguntas. (siga este <a href='http://190.144.63.5:81/AlmaSurvey/Default.aspx'>link</a>) </p>" +
                          //"<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Si quiere conocer más acerca de este procedimiento lo invitamos a visitar el siguiente <a href='https://sway.com/Q1l1UdR_TpZuTtMx'>link</a></p>" +
                          //"<p style='margin:0px 0px 20px 10px;font-family:century gothic;font-size:14px;color:#585964'>Si presenta algún problema al ingresar a la encuesta pude ingresar en el siguiente <a href='https://sway.com/3UB1GZdF8Uc8Xwz2'>link</a></p>" +
